@@ -35,3 +35,16 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/laboratorio:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Run container on runner
+        run: |
+          docker run -d \
+            --name laboratorio-app \
+            -p 3000:3000 \
+            ${{ secrets.DOCKERHUB_USERNAME }}/laboratorio:${{ github.sha }}
+
+      - name: Check running container
+        run: |
+          sleep 10
+          docker ps --filter name=laboratorio-app
+          curl -fsS http://127.0.0.1:3000 || true
