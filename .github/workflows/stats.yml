@@ -1,0 +1,20 @@
+name: Stats
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo 
+        uses: action/checkout@v4
+
+      - name: Setup Python 
+        uses: actions/setups-python@v5
+        with:
+           python-version: '3.11'
+      - name: Run script
+        run: python ./laboratorio/main.py
