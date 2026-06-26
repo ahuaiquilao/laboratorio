@@ -1,6 +1,6 @@
 #Este es simplemente el nombre que aparecerá en la pestaña Actions de GitHub.
 #Este action lo que hace es solamente ejecutar un python.
-name: Stats
+name: Run a Python Program
 
 #define el evento que dispara el workflow.
 on:
