@@ -1,20 +1,69 @@
+#Este es simplemente el nombre que aparecerá en la pestaña Actions de GitHub.
 name: Stats
 
+#define el evento que dispara el workflow.
 on:
+  #cuando alguien hace un git push.
   push:
+    #solamente si ese push fue hacia la rama develop
     branches: [ develop ]
 
+#Definición de los trabajos    
 jobs:
+  #El nombre del job es build
   build:
+    # GitHub crea una máquina virtual con Ubuntu.
+    # Es una máquina completamente nueva.
+    # No utiliza tu computador.
+    # Cada ejecución comienza desde cero.
     runs-on: ubuntu-latest
 
     steps:
+
+      #Este paso descarga el repositorio dentro de la máquina virtual.
+      #Antes del checkout la máquina está vacía.
+      #Después del checkout tendrá algo parecido a:
+      #/
+      #├── README.md
+      #├── package.json
+      #├── src/
+      #├── laboratorio/
+      #│     └── prueba-action/
+      #│            └── main.py
+
       - name: checkout repos 
         uses: actions/checkout@v7
 
+      # Instala Python 3.11 en la máquina.
       - name: Setup Python 
         uses: actions/setup-python@v6
         with:
            python-version: '3.11'
+
       - name: Run script
         run: python ./prueba-action/main.py
+
+#       Flujo completo
+#   Todo ocurre en este orden:
+#Push a develop
+#       │
+#       ▼
+#GitHub detecta el push
+#       │
+#       ▼
+#Crea Ubuntu
+#       │
+#       ▼
+#Descarga el repositorio
+#       │
+#       ▼
+#Instala Python 3.11
+#       │
+#       ▼
+#Ejecuta main.py
+#       │
+#       ▼
+#Muestra los logs
+#       │
+#       ▼
+#Destruye la máquina
