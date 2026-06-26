@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: checkout repo 
-        uses: action/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Setup Python 
         uses: actions/setups-python@v5
