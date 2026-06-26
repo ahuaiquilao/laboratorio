@@ -41,6 +41,7 @@ jobs:
         with:
            python-version: '3.11'
 
+      # Ejecuta el main.py           
       - name: Run script
         run: python ./prueba-action/main.py
 
