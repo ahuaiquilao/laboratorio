@@ -17,4 +17,4 @@ jobs:
         with:
            python-version: '3.11'
       - name: Run script
-        run: python ./laboratorio/main.py
+        run: python ./laboratorio/prueba-action1/main.py
