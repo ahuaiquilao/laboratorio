@@ -1,0 +1,33 @@
+name: Build and Deploy
+
+# Se ejecuta cada vez que haces push a main
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    # Este job se ejecuta en tu máquina (self-hosted runner)
+    runs-on: self-hosted
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Build Docker image
+        run: docker build -t hola-mundo-app:latest .
+      
+      - name: Stop old container
+        run: docker stop hola-mundo-app || true
+      
+      - name: Remove old container
+        run: docker rm hola-mundo-app || true
+      
+      - name: Run new container
+        run: docker run -d -p 8080:80 --name hola-mundo-app --restart unless-stopped hola-mundo-app:latest
+      
+      - name: Verify deployment
+        run: sleep 2 && curl -f http://localhost:8080 || exit 1
+      
+      - name: Success notification
+        run: echo "✅ Deployment successful! App running at http://localhost:8080"
