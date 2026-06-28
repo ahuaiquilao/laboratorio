@@ -28,3 +28,8 @@ jobs:
           file: ./apps-hola-mundo/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:latest
+
+      - name: Show image name
+        run: |
+            echo "Repository: ${{ github.event.repository.name }}"
+            echo "Image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:latest"
